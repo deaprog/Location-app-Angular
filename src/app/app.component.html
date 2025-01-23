@@ -1,0 +1,74 @@
+<div class="container">
+  <h1 class="header">Location Data</h1>
+
+  <div class="section">
+    <h2>Countries</h2>
+    <input [(ngModel)]="countrySearch" (input)="filterCountries()" placeholder="Search Country" />
+    <div class="horizontal-scroll">
+      <div
+        *ngFor="let country of filteredCountries.slice(0, itemsToShowCountries)"
+        class="item"
+        [class.selected]="country === selectedCountry"
+        (click)="getStates(country.id)"
+      >
+        {{ country.name }}
+      </div>
+    </div>
+    <div class="button-container" *ngIf="filteredCountries.length > itemsToShowCountries">
+      <button (click)="showMoreCountries()">Show More</button>
+    </div>
+  </div>
+
+  <div class="section" *ngIf="selectedCountry">
+    <h2>States in {{ selectedCountry.name }}</h2>
+    <input [(ngModel)]="stateSearch" (input)="filterStates()" placeholder="Search State" />
+    <div class="horizontal-scroll">
+      <div
+        *ngFor="let state of filteredStates.slice(0, itemsToShowStates)"
+        class="item"
+        [class.selected]="state === selectedState"
+        (click)="getCities(state.id)"
+      >
+        {{ state.name }}
+      </div>
+    </div>
+    <div class="button-container" *ngIf="filteredStates.length > itemsToShowStates">
+      <button (click)="showMoreStates()">Show More</button>
+    </div>
+  </div>
+
+  <div class="section" *ngIf="selectedState">
+    <h2>Cities in {{ selectedState.name }}</h2>
+    <input [(ngModel)]="citySearch" (input)="filterCities()" placeholder="Search City" />
+    <div class="horizontal-scroll">
+      <div
+        *ngFor="let city of filteredCities.slice(0, itemsToShowCities)"
+        class="item"
+        [class.selected]="city === selectedCity"
+        (click)="getZipCodes(city.id)"
+      >
+        {{ city.name }}
+      </div>
+    </div>
+    <div class="button-container" *ngIf="filteredCities.length > itemsToShowCities">
+      <button (click)="showMoreCities()">Show More</button>
+    </div>
+  </div>
+
+  <div class="section" *ngIf="selectedCity">
+    <h2>Zip Codes in {{ selectedCity.name }}</h2>
+    <input [(ngModel)]="zipSearch" (input)="filterZipCodes()" placeholder="Search Zip Code" />
+    <div class="horizontal-scroll">
+      <div
+        *ngFor="let zip of filteredZipCodes.slice(0, itemsToShowZipCodes)"
+        class="item"
+        [class.selected]="zip === selectedZipCode"
+      >
+        {{ zip.zip_code }}
+      </div>
+    </div>
+    <div class="button-container" *ngIf="filteredZipCodes.length > itemsToShowZipCodes">
+      <button (click)="showMoreZipCodes()">Show More</button>
+    </div>
+  </div>
+</div>
